@@ -114,14 +114,17 @@ jobs:
           name: release-artifacts
 
   macos-build:
-    runs-on: macos-latest
+    runs-on: macos-10.15
     timeout-minutes: 120
     env:
       build_argv: '--features=-supports_dynamic_linker '
       bazel_version: '3.7.2'
     steps:
       - uses: actions/checkout@v2
-
+      - name: Xcode Select
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: 12.1.1
       - name: update bazel version
         run: echo ${{ env.bazel_version }} > .bazelversion
 
